@@ -6,7 +6,8 @@ const logger = createLogger({
   level: 'info',
   format: format.combine(
     format.splat(),
-    format.simple()
+    format.simple(),
+    format.errors({ stack: true })
   ),
   transports: [
     new transports.Console()
