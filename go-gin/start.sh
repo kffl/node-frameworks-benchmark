@@ -1,1 +1,1 @@
-./server-go
+taskset --cpu-list 1 ./server-go
