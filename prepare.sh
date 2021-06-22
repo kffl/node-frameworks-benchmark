@@ -37,4 +37,4 @@ npm run build
 
 echo "Python - Flask"
 cd ../py-flask
-pip install -r requirements.txt
+pip3 install -r requirements.txt

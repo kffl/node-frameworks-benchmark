@@ -1,6 +1,7 @@
 #!/bin/bash
 
-for framework in express adonis fastify feathers hapi nest nest-fastify go-gin py-flask
+# for framework in express adonis fastify feathers hapi nest nest-fastify go-gin py-flask
+for framework in py-flask
 do
     cd $framework
     echo "Starting $framework benchmark"
@@ -9,9 +10,9 @@ do
     for run in {1..10}
     do
         echo "Run $run/10..."
-        timeout 9 ./start.sh &
+        timeout 13 ./start.sh > /dev/null &
         sleep 2
-        ../wrk --duration=6000000 --threads=2 --connections=20 http://localhost:3000/static --latency -x > ../results/res_"$framework"_places_"$run"
+        ../wrx --duration=10 --threads=2 --connections=20 http://localhost:3000/static --latency --histogram --timeseries > ../results/res_"$framework"_static_"$run"
         sleep 2
     done
 
@@ -19,9 +20,9 @@ do
     for run in {1..10}
     do
         echo "Run $run/10..."
-        timeout 9 ./start.sh &
+        timeout 13 ./start.sh > /dev/null &
         sleep 2
-        ../wrk --duration=6000000 --threads=2 --connections=20 http://localhost:3000/fib --latency -x > ../results/res_"$framework"_fib_"$run"
+        ../wrx --duration=10 --threads=2 --connections=20 http://localhost:3000/fib --latency --histogram --timeseries > ../results/res_"$framework"_fib_"$run"
         sleep 2
     done
 
@@ -29,9 +30,9 @@ do
     for run in {1..10}
     do
         echo "Run $run/10..."
-        timeout 9 ./start.sh &
+        timeout 13 ./start.sh > /dev/null &
         sleep 2
-        ../wrk --duration=6000000 --threads=2 --connections=20 http://localhost:3000/redis --latency -x > ../results/res_"$framework"_redis_"$run"
+        ../wrx --duration=10 --threads=2 --connections=20 http://localhost:3000/redis --latency --histogram --timeseries > ../results/res_"$framework"_redis_"$run"
         sleep 2
     done
 
@@ -39,9 +40,9 @@ do
     for run in {1..10}
     do
         echo "Run $run/10..."
-        timeout 9 ./start.sh &
+        timeout 13 ./start.sh > /dev/null &
         sleep 2
-        ../wrk --duration=6000000 --threads=2 --connections=20 http://localhost:3000/validation\?number\=5\&string\=x1237 --latency -x > ../results/res_"$framework"_validation_"$run"
+        ../wrx --duration=10 --threads=2 --connections=20 http://localhost:3000/validation\?number\=5\&string\=x1237 --latency --histogram --timeseries > ../results/res_"$framework"_validation_"$run"
         sleep 2
     done
 
@@ -49,9 +50,9 @@ do
     for run in {1..10}
     do
         echo "Run $run/10..."
-        timeout 9 ./start.sh &
+        timeout 13 ./start.sh > /dev/null 2>&1 &
         sleep 2
-        ../wrk --duration=6000000 --threads=2 --connections=20 http://localhost:3000/error/1 --latency -x > ../results/res_"$framework"_validation_"$run"
+        ../wrx --duration=10 --threads=2 --connections=20 http://localhost:3000/error/1 --latency --histogram --timeseries > ../results/res_"$framework"_error_"$run"
         sleep 2
     done
 
