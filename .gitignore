@@ -1,5 +1,6 @@
 node_modules/
 results/*
+!results/Graphs.ipynb
 go/*
 polka/*
 wrk
